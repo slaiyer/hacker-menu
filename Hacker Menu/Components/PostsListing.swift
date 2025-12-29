@@ -125,7 +125,13 @@ struct PostRow: View {
             perform: { showTipRow = true },
         )
         .focusable()
-        .onKeyPress(.space, action: { showTipRow.toggle(); return .handled })
+        .onKeyPress(.space, phases: .all) { keyPress in
+            if keyPress.phase == .up {
+                showTipRow.toggle()
+            }
+
+            return .handled
+        }
     }
 }
 
