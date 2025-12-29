@@ -19,7 +19,7 @@ struct Actions: View {
                 .contentShape(.capsule)
                 .clipShape(.capsule)
                 .clipped(antialiased: true)
-                .blur(radius: isHoverRow ? 0 : 4)
+                .blur(radius: isHoverRow ? 0 : 2)
                 .focusable(false)
 
             HStack {
@@ -64,6 +64,7 @@ struct Actions: View {
             .padding(.leading, 14)
             .padding(.trailing, 10)
         }
+        .controlSize(.small)
         .focusEffectDisabled()
         .opacity(isHoverRow ? 1 : 0.5)
         .shadow(color: .accent, radius: 0)

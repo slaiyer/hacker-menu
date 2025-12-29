@@ -11,7 +11,6 @@ struct AppMenu: View {
             }
             .animation(.default, value: posts)
             .padding(.top, 4)
-            .padding(.leading, 1)
             .padding(.trailing, 14)
         } else {
             ZStack {

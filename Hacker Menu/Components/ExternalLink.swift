@@ -14,7 +14,7 @@ struct ExternalLink: View {
                 Text(title)
                     .lineLimit(1)
                     .truncationMode(.middle)
-                    .opacity(isHovering ? 1.0 : 0.8)
+                    .opacity(isHovering ? 1.0 : 0.75)
             }
         )
         .buttonStyle(.borderless)

@@ -32,6 +32,7 @@ struct PostRow: View {
 
     @State private var isHoveringRow: Bool = false
     @State private var showTipRow: Bool = false
+    @State private var click: Bool = false
 
     var body: some View {
         let extURL: URL? = if let url = post.url, let extURL = URL(string: url) {
@@ -45,11 +46,24 @@ struct PostRow: View {
             HStack {
                 TwinLink(extURL: extURL, hnURL: hnURL, openConfig: openConfig)
                     .padding(.leading, 2)
-                    .shadow(color: isHoveringRow ? .accent.mix(with: .primary, by: 0.5) : .clear, radius: 2)
+                    .shadow(color: isHoveringRow ? .accent.mix(with: .secondary, by: 0.75) : .clear, radius: 2)
                     .blur(radius: isHoveringRow ? 0 : 2)
+                    .tint(
+                        click ? .accent.mix(with: .primary, by: 0.75)
+                        : isHoveringRow ? .accent.mix(with: .secondary, by: 0.75)
+                        : .none
+                    )
                     .highPriorityGesture(
-                        LongPressGesture(minimumDuration: 0.3).onEnded { _ in showTipRow = true }
-                            .sequenced(before: TapGesture().onEnded { showTipRow = false })
+                        LongPressGesture(minimumDuration: 0.3)
+                            .onChanged { _ in click = true }
+                            .onEnded { _ in showTipRow = true }
+                            .sequenced(
+                                before: TapGesture()
+                                    .onEnded {
+                                        showTipRow = false
+                                        click = false
+                                    }
+                            )
                     )
 
                 VStack(alignment: .leading) {
@@ -123,7 +137,13 @@ struct PostRow: View {
             Spacer()
         }
         .contentShape(.rect)
-        .onHover { hovering in isHoveringRow = hovering }
+        .onHover { hovering in
+            isHoveringRow = hovering
+
+            if !hovering {
+                click = false
+            }
+        }
         .onLongPressGesture(
             minimumDuration: 0.3,
             perform: { showTipRow = true },
