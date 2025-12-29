@@ -124,7 +124,7 @@ struct PostRow: View {
             minimumDuration: 0.3,
             perform: { showTipRow = true },
         )
-        .onKeyPress(.space, action: { showTipRow = true; return .handled })
+        .onKeyPress(.space, action: { showTipRow.toggle(); return .handled })
     }
 }
 
