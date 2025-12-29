@@ -69,6 +69,11 @@ struct PostRow: View {
                         openConfig: openConfig,
                     )
                 }
+                .onHover { hovering in
+                    if !hovering {
+                        showTipRow = false
+                    }
+                }
             }
             .animation(.easeIn, value: isHoverRow)
             .popover(isPresented: $showTipRow, arrowEdge: .leading) {
@@ -113,13 +118,7 @@ struct PostRow: View {
             Spacer()
         }
         .contentShape(.rect)
-        .onHover { hovering in
-            isHoverRow = hovering
-
-            if !hovering {
-                showTipRow = false
-            }
-        }
+        .onHover { hovering in isHoverRow = hovering }
         .onLongPressGesture(
             minimumDuration: 0.3,
             perform: { showTipRow = true },
