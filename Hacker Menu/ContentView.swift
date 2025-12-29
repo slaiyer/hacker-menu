@@ -120,6 +120,7 @@ struct HackerMenu: App {
         .frame(minWidth: 500, minHeight: 400)
         .allowsWindowActivationEvents()
         .allowsTightening(true)
+        .focusEffectDisabled()
     }
 
     private func startApp() {

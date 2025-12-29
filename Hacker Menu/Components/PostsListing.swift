@@ -9,6 +9,7 @@ struct PostsListing: View {
     }()
 
     private let dateTimeFormatter = RelativeDateTimeFormatter()
+    @FocusState var focusRow: Int?
 
     var body: some View {
         ForEach(posts) { post in
@@ -20,6 +21,8 @@ struct PostsListing: View {
                 timestamp: dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
                 openConfig: openConfig,
             )
+            .onHover { _ in focusRow = post.id }
+            .focused($focusRow, equals: post.id)
         }
     }
 }
@@ -30,24 +33,19 @@ struct PostRow: View {
     let timestamp: String
     let openConfig: NSWorkspace.OpenConfiguration
 
-    @State private var isHoveringRow: Bool = false
+    @State private var isHoverRow: Bool = false
     @State private var showTipRow: Bool = false
-    @FocusState private var focusRow: Bool
 
     var body: some View {
-        let extURL: URL? = if let url = post.url, let extURL = URL(string: url) {
-            extURL
-        } else {
-            nil
-        }
+        let extURL: URL? = if let url = post.url, let extURL = URL(string: url) { extURL } else { nil }
         let hnURL = URL(string: "https://news.ycombinator.com/item?id=\(post.id)")!
 
         VStack {
             HStack {
                 TwinLink(extURL: extURL, hnURL: hnURL, openConfig: openConfig)
                     .padding(.leading, 2)
-                    .shadow(color: isHoveringRow ? .accent.mix(with: .secondary, by: 0.75) : .clear, radius: 2)
-                    .blur(radius: isHoveringRow ? 0 : 2)
+                    .shadow(color: isHoverRow ? .accent.mix(with: .secondary, by: 0.75) : .clear, radius: 2)
+                    .blur(radius: isHoverRow ? 0 : 2)
 
                 VStack(alignment: .leading) {
                     let title = post.title ?? "􀉣"
@@ -55,7 +53,7 @@ struct PostRow: View {
                     if let extURL {
                         ExternalLink(title: title, link: extURL, openConfig: openConfig)
                             .foregroundStyle(.primary)
-                            .shadow(color: .accent, radius: isHoveringRow ? 0.75 : 0)
+                            .shadow(color: .accent, radius: isHoverRow ? 0.75 : 0)
                     } else {
                         Text(title)
                             .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
@@ -71,13 +69,8 @@ struct PostRow: View {
                         openConfig: openConfig,
                     )
                 }
-                .onHover { hovering in
-                    if !hovering {
-                        showTipRow = false
-                    }
-                }
             }
-            .animation(.easeIn, value: isHoveringRow)
+            .animation(.easeIn, value: isHoverRow)
             .popover(isPresented: $showTipRow, arrowEdge: .leading) {
                 VStack(alignment: .leading) {
                     if let title = post.title {
@@ -121,8 +114,7 @@ struct PostRow: View {
         }
         .contentShape(.rect)
         .onHover { hovering in
-            isHoveringRow = hovering
-            focusRow = hovering
+            isHoverRow = hovering
 
             if !hovering {
                 showTipRow = false
@@ -131,11 +123,7 @@ struct PostRow: View {
         .onLongPressGesture(
             minimumDuration: 0.3,
             perform: { showTipRow = true },
-            onPressingChanged: { _ in showTipRow = false },
         )
-        .focusable()
-        .focusEffectDisabled()
-        .focused($focusRow)
         .onKeyPress(.space, action: { showTipRow = true; return .handled })
     }
 }
@@ -161,7 +149,6 @@ struct TwinLink: View {
                 .frame(maxHeight: .infinity)
         }
         .buttonStyle(.glass)
-        .focusable(false)
         .onHover { inside in isHovering = inside }
         .foregroundStyle(isHovering ? .accent.mix(with: .primary, by: 0.5) : .secondary.opacity(0.5))
         .contentShape(.circle)
@@ -200,7 +187,6 @@ struct PostInfo: View {
             )
             .buttonStyle(.borderless)
             .padding(.leading)
-            .focusable(false)
 
             Spacer()
 
@@ -212,7 +198,6 @@ struct PostInfo: View {
                 }
             )
             .buttonStyle(.borderless)
-            .focusable(false)
         }
         .padding(.leading)
         .font(.subheadline)

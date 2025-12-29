@@ -20,6 +20,5 @@ struct ExternalLink: View {
         .buttonStyle(.borderless)
         .onHover{ inside in isHovering = inside }
         .animation(.default, value: isHovering)
-        .focusable(false)
     }
 }

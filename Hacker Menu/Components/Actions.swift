@@ -65,7 +65,6 @@ struct Actions: View {
             .padding(.trailing, 10)
         }
         .controlSize(.small)
-        .focusEffectDisabled()
         .opacity(isHoverRow ? 1 : 0.5)
         .shadow(color: .accent, radius: 0)
         .blur(radius: isHoverRow ? 0 : 2)
