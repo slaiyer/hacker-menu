@@ -124,6 +124,7 @@ struct PostRow: View {
             minimumDuration: 0.3,
             perform: { showTipRow = true },
         )
+        .focusable()
         .onKeyPress(.space, action: { showTipRow.toggle(); return .handled })
     }
 }
@@ -149,6 +150,7 @@ struct TwinLink: View {
                 .frame(maxHeight: .infinity)
         }
         .buttonStyle(.glass)
+        .focusable(false)
         .onHover { inside in isHovering = inside }
         .foregroundStyle(isHovering ? .accent.mix(with: .primary, by: 0.5) : .secondary.opacity(0.5))
         .contentShape(.circle)
@@ -186,6 +188,7 @@ struct PostInfo: View {
                 }
             )
             .buttonStyle(.borderless)
+            .focusable(false)
             .padding(.leading)
 
             Spacer()
@@ -198,6 +201,7 @@ struct PostInfo: View {
                 }
             )
             .buttonStyle(.borderless)
+            .focusable(false)
         }
         .padding(.leading)
         .font(.subheadline)
