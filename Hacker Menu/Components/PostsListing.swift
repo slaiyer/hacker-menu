@@ -65,6 +65,7 @@ struct PostRow: View {
                                     }
                             )
                     )
+                    .onHover { hovering in if !hovering { click = false } }
 
                 VStack(alignment: .leading) {
                     let title = post.title ?? "􀉣"
@@ -137,13 +138,7 @@ struct PostRow: View {
             Spacer()
         }
         .contentShape(.rect)
-        .onHover { hovering in
-            isHoveringRow = hovering
-
-            if !hovering {
-                click = false
-            }
-        }
+        .onHover { hovering in isHoveringRow = hovering }
         .onLongPressGesture(
             minimumDuration: 0.3,
             perform: { showTipRow = true },
