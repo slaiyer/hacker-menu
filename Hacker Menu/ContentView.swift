@@ -1,4 +1,5 @@
 import Combine
+import ServiceManagement
 import SwiftUI
 
 @main
@@ -134,6 +135,10 @@ struct HackerMenu: App {
                 }
             }
         )
+
+        if SMAppService.mainApp.status != .enabled {
+            try? SMAppService.mainApp.register()
+        }
     }
 
     private func adjustTitleForMenuBar() {
