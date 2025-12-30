@@ -379,7 +379,7 @@ extension KeyboardShortcuts.Name {
 struct SettingsView: View {
     var body: some View {
         Form {
-            KeyboardShortcuts.Recorder("Toggle Menu:", name: .toggleMenu)
+            KeyboardShortcuts.Recorder("Toggle menu:", name: .toggleMenu)
         }
         .padding()
     }
