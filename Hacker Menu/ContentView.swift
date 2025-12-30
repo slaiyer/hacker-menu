@@ -10,6 +10,7 @@ struct HackerMenu: App {
     private let maxMenuBarWidth: CGFloat = 250
     private let reloadRate = 3600.0
     private static let timer = Timer()
+    private let viewModel = FeedViewModel()
 
     @StateObject private var manager = MenuBarManager()
     @State private var isFetching = false
@@ -44,6 +45,9 @@ struct HackerMenu: App {
         .onChange(of: textObserver.debouncedText) {
             runFilter(textObserver.debouncedText)
         }
+        .onChange(of: filteredPosts) {
+            viewModel.requestScrollToTop()
+        }
         .onChange(of: showHeadline) {
             adjustTitleForMenuBar()
             LocalDataSource.saveShowHeadline(value: showHeadline)
@@ -72,6 +76,8 @@ struct HackerMenu: App {
         }
     }
 
+    @Namespace private var topID
+    @Namespace private var bottomID
     @State private var passion = false
     fileprivate func ContentView() -> some View {
         return VStack {
@@ -114,11 +120,62 @@ struct HackerMenu: App {
 
             if !passion {
                 // TODO: vim-like j/k navigation
-                ScrollView {
-                    AppMenu(
-                        posts: $filteredPosts,
-                        isFetching: $isFetching,
-                    )
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        if !filteredPosts.isEmpty {
+                            LazyVStack(spacing: 0) {
+                                EmptyView()
+                                    .id(topID)
+
+                                PostsListing(posts: filteredPosts)
+                                    .animation(.default, value: filteredPosts)
+
+                                EmptyView()
+                                    .id(bottomID)
+                            }
+
+                            ZStack {
+                                Button("􀅀") {
+                                    withAnimation {
+                                        proxy.scrollTo(bottomID)
+                                    }
+                                }
+                                .hidden()
+                                .keyboardShortcut(.end, modifiers: [])
+                                .buttonStyle(.borderless)
+                                .controlSize(.small)
+
+                                Button("􀄿") {
+                                    withAnimation {
+                                        proxy.scrollTo(topID)
+                                    }
+                                }
+                                .keyboardShortcut(.home, modifiers: [])
+                                .focusable(false)
+                                .buttonStyle(.borderless)
+                                .controlSize(.small)
+                                .tint(.secondary)
+                                .shadow(color: .accent, radius: 0)
+                            }
+                        } else {
+                            ZStack {
+                                Spacer().containerRelativeFrame([.horizontal, .vertical])
+
+                                Image(systemName: "ellipsis")
+                                    .symbolEffect(
+                                        .variableColor.iterative.dimInactiveLayers.reversing,
+                                        options: .repeat(.continuous),
+                                        isActive: isFetching,
+                                    )
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
+                    .onReceive(viewModel.scrollRequest) { _ in
+                        withAnimation {
+                            proxy.scrollTo(topID)
+                        }
+                    }
                 }
             } else {
                 Image(.graphicDesignIsMyPassion)
@@ -265,6 +322,7 @@ struct HackerMenu: App {
         Task {
             if reverse {
                 if sortKey == .original {
+                    viewModel.requestScrollToTop()
                     return
                 }
 
@@ -408,6 +466,14 @@ extension Task where Failure == any Error {
     }
 }
 
+class FeedViewModel: ObservableObject {
+    let scrollRequest = PassthroughSubject<Void, Never>()
+
+    func requestScrollToTop() {
+        scrollRequest.send()
+    }
+}
+
 class TextFieldObserver : ObservableObject {
     @Published var debouncedText = ""
     @Published var searchText = ""
@@ -419,7 +485,7 @@ class TextFieldObserver : ObservableObject {
             .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
             .sink(receiveValue: { [weak self] t in
                 self?.debouncedText = t
-            } )
+            })
             .store(in: &subscriptions)
     }
 }

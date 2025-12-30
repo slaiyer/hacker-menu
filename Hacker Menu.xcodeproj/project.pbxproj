@@ -15,13 +15,11 @@
 		1FB71E1C2EEAC6EE0006886C /* StoryFetchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E122EEAC6EE0006886C /* StoryFetchResponse.swift */; };
 		1FB71E1D2EEAC6EE0006886C /* ExternalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E0F2EEAC6EE0006886C /* ExternalLink.swift */; };
 		1FB71E1E2EEAC6EE0006886C /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E0D2EEAC6EE0006886C /* Actions.swift */; };
-		1FB71E1F2EEAC6EE0006886C /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E0E2EEAC6EE0006886C /* AppMenu.swift */; };
 		1FB71E202EEAC6EE0006886C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E152EEAC6EE0006886C /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1FB71E0D2EEAC6EE0006886C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
-		1FB71E0E2EEAC6EE0006886C /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		1FB71E0F2EEAC6EE0006886C /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		1FB71E102EEAC6EE0006886C /* PostsListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsListing.swift; sourceTree = "<group>"; };
 		1FB71E122EEAC6EE0006886C /* StoryFetchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryFetchResponse.swift; sourceTree = "<group>"; };
@@ -47,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				1FB71E0D2EEAC6EE0006886C /* Actions.swift */,
-				1FB71E0E2EEAC6EE0006886C /* AppMenu.swift */,
 				1FB71E102EEAC6EE0006886C /* PostsListing.swift */,
 				1FB71E0F2EEAC6EE0006886C /* ExternalLink.swift */,
 			);
@@ -169,7 +166,6 @@
 				1FB71E1C2EEAC6EE0006886C /* StoryFetchResponse.swift in Sources */,
 				1FB71E1D2EEAC6EE0006886C /* ExternalLink.swift in Sources */,
 				1FB71E1E2EEAC6EE0006886C /* Actions.swift in Sources */,
-				1FB71E1F2EEAC6EE0006886C /* AppMenu.swift in Sources */,
 				1FB71E202EEAC6EE0006886C /* ContentView.swift in Sources */,
 			);
 		};
