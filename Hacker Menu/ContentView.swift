@@ -23,7 +23,7 @@ struct HackerMenu: App {
     @State private var filteredPosts: [StoryFetchResponse] = []
     @State private var filterTask: Task<Void, Never>? = nil
     @State private var isFilterMode: Bool = false
-    @FocusState private var isFilterFocused: Bool
+    @FocusState var focus: Int?
 
     var body: some Scene {
         MenuBarExtra {
@@ -89,7 +89,7 @@ struct HackerMenu: App {
                     .keyboardShortcut("/", modifiers: [])
 
                     Button(action: { passion.toggle() }) {
-                        Text("􀊹")
+                        Text("􀊴")
                     }
                     .keyboardShortcut("!", modifiers: [])
 
@@ -98,14 +98,14 @@ struct HackerMenu: App {
                     }
                     .keyboardShortcut(.cancelAction)
                 }
+                .buttonStyle(.borderless)
+                .controlSize(.small)
                 .hidden()
 
                 if isFilterMode {
                     TextField("􀜓 Filter", text: $textObserver.searchText)
-                        .focused($isFilterFocused)
-                        .onSubmit {
-                            isFilterFocused = false
-                        }
+                        .focused($focus, equals: -1)
+                        .onSubmit { focus = nil }
                         .autocorrectionDisabled()
                         .padding(.horizontal, 45)
                 } else {
@@ -128,13 +128,22 @@ struct HackerMenu: App {
                                 EmptyView()
                                     .id(topID)
 
-                                PostsListing(posts: filteredPosts)
-                                    .animation(.default, value: filteredPosts)
+                                PostsListing(
+                                    posts: filteredPosts,
+                                    focus: $focus,
+                                )
+                                .animation(.default, value: filteredPosts)
 
                                 EmptyView()
                                     .id(bottomID)
                             }
+                            .onReceive(viewModel.scrollRequest) { _ in
+                                withAnimation {
+                                    proxy.scrollTo(topID)
+                                }
+                            }
                             .padding(.top, 2)
+                            .padding(.trailing, 15)
 
                             ZStack {
                                 Button("􀅀") {
@@ -171,11 +180,6 @@ struct HackerMenu: App {
                                     )
                                     .foregroundStyle(.tertiary)
                             }
-                        }
-                    }
-                    .onReceive(viewModel.scrollRequest) { _ in
-                        withAnimation {
-                            proxy.scrollTo(topID)
                         }
                     }
                 }
@@ -354,21 +358,25 @@ struct HackerMenu: App {
 
     private func startFilterMode() {
         isFilterMode = true
-        isFilterFocused = true
+
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            focus = -1
+        }
     }
 
     private func endFilterMode() {
         textObserver.searchText.removeAll(keepingCapacity: true)
         textObserver.debouncedText.removeAll(keepingCapacity: true)
-        isFilterFocused = false
-        isFilterMode = false
         filterTask?.cancel()
+        focus = nil
+        isFilterMode = false
     }
 
     private func runFilter(_ filterText: String) {
         filterTask?.cancel()
 
-        filterTask = Task.detached(priority: .background) { [posts, filterText] in
+        filterTask = Task.immediateDetached(priority: .background) { [posts, filterText] in
             try? Task.checkCancellation()
 
             let results: [StoryFetchResponse]

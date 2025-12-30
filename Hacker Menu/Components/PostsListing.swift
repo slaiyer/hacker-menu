@@ -2,6 +2,8 @@ import SwiftUI
 
 struct PostsListing: View {
     let posts: [StoryFetchResponse]
+    @FocusState.Binding var focus: Int?
+
     let openConfig = {
         let conf = NSWorkspace.OpenConfiguration()
         conf.activates = false
@@ -9,7 +11,6 @@ struct PostsListing: View {
     }()
 
     private let dateTimeFormatter = RelativeDateTimeFormatter()
-    @FocusState var focusRow: Int?
 
     var body: some View {
         ForEach(posts) { post in
@@ -21,8 +22,14 @@ struct PostsListing: View {
                 timestamp: dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
                 openConfig: openConfig,
             )
-            .onHover { _ in focusRow = post.id }
-            .focused($focusRow, equals: post.id)
+            .onHover { hovering in
+                NSApp.activate(ignoringOtherApps: true)
+
+                if hovering {
+                    focus = post.id
+                }
+            }
+            .focused($focus, equals: post.id)
         }
     }
 }
