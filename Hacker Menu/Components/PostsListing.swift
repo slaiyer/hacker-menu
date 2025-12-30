@@ -118,7 +118,13 @@ struct PostRow: View {
             Spacer()
         }
         .contentShape(.rect)
-        .onHover { hovering in isHoverRow = hovering }
+        .onHover { hovering in
+            isHoverRow = hovering
+
+            if !hovering {
+                showTipRow = false
+            }
+        }
         .onLongPressGesture(
             minimumDuration: 0.3,
             perform: { showTipRow = true },
