@@ -117,6 +117,7 @@ struct HackerMenu: App {
                     )
                 }
             }
+            .padding(.bottom, 2)
 
             if !passion {
                 // TODO: vim-like j/k navigation
@@ -133,6 +134,7 @@ struct HackerMenu: App {
                                 EmptyView()
                                     .id(bottomID)
                             }
+                            .padding(.top, 2)
 
                             ZStack {
                                 Button("􀅀") {
