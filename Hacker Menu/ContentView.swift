@@ -1,4 +1,6 @@
 import Combine
+import KeyboardShortcuts
+import MenuBarExtraAccess
 import ServiceManagement
 import SwiftUI
 
@@ -9,6 +11,7 @@ struct HackerMenu: App {
     private let reloadRate = 3600.0
     private static let timer = Timer()
 
+    @StateObject private var manager = MenuBarManager()
     @State private var isFetching = false
     @State private var posts: [StoryFetchResponse] = LocalDataSource.getPosts()
     @State private var showHeadline = LocalDataSource.getShowHeadline()
@@ -30,6 +33,7 @@ struct HackerMenu: App {
         }
         .menuBarExtraStyle(.window)
         .windowLevel(.floating)
+        .menuBarExtraAccess(isPresented: $manager.isMenuPresented)
         .onChange(of: posts) {
             runFilter(textObserver.debouncedText)
             adjustTitleForMenuBar()
@@ -61,6 +65,10 @@ struct HackerMenu: App {
                     .keyboardShortcut(KeyEquivalent(key.cut), modifiers: [])
                 }
             }
+        }
+
+        Settings {
+            SettingsView()
         }
     }
 
@@ -348,6 +356,33 @@ enum SortKey: Int, Codable, CaseIterable, Identifiable {
     }
 
     var cut: Character { String(id).first! }
+}
+
+@MainActor
+class MenuBarManager: ObservableObject {
+    @Published var isMenuPresented = false
+
+    init() {
+        KeyboardShortcuts.onKeyUp(for: .toggleMenu) { [weak self] in
+            self?.isMenuPresented.toggle()
+        }
+    }
+}
+
+extension KeyboardShortcuts.Name {
+    static let toggleMenu = Self(
+        "toggleMenu",
+        default: .init(.h, modifiers: [.command, .option, .shift]),
+    )
+}
+
+struct SettingsView: View {
+    var body: some View {
+        Form {
+            KeyboardShortcuts.Recorder("Toggle Menu:", name: .toggleMenu)
+        }
+        .padding()
+    }
 }
 
 extension Task where Failure == any Error {
