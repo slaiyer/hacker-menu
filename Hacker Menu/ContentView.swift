@@ -98,8 +98,6 @@ struct HackerMenu: App {
                     }
                     .keyboardShortcut(.cancelAction)
                 }
-                .buttonStyle(.borderless)
-                .controlSize(.small)
                 .hidden()
 
                 if isFilterMode {
