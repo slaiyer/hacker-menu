@@ -358,7 +358,7 @@ struct HackerMenu: App {
         isFilterMode = true
 
         DispatchQueue.main.async {
-            NSApp.activate(ignoringOtherApps: true)
+            NSApp.activate()
             focus = -1
         }
     }
