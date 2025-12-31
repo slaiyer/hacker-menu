@@ -103,6 +103,7 @@ struct HackerMenu: App {
                 if isFilterMode {
                     TextField("􀜓 Filter", text: $textObserver.searchText)
                         .focused($focus, equals: -1)
+                        .onHover { hovering in if hovering { focus = -1 } }
                         .onSubmit { focus = nil }
                         .autocorrectionDisabled()
                         .padding(.horizontal, 45)
@@ -159,12 +160,10 @@ struct HackerMenu: App {
                                         proxy.scrollTo(topID)
                                     }
                                 }
+                                .hidden()
                                 .keyboardShortcut(.home, modifiers: [])
-                                .focusable(false)
                                 .buttonStyle(.borderless)
                                 .controlSize(.small)
-                                .tint(.secondary)
-                                .shadow(color: .accent, radius: 0)
                             }
                         } else {
                             ZStack {
