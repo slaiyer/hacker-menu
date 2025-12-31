@@ -28,6 +28,7 @@ struct HackerMenu: App {
     var body: some Scene {
         MenuBarExtra {
             ContentView()
+                .font(Font.custom("Lucida Grande Light", size: 12))
         } label: {
             Text(showHeadline ? truncatedTitle ?? "Reading HN…" : "ℏ")
                 .onAppear(perform: startApp)
@@ -363,9 +364,9 @@ struct HackerMenu: App {
 
     private func startFilterMode() {
         isFilterMode = true
+        NSApp.activate()
 
         DispatchQueue.main.async {
-            NSApp.activate()
             focus = -1
         }
     }

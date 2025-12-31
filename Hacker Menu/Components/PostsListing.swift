@@ -23,9 +23,8 @@ struct PostsListing: View {
                 openConfig: openConfig,
             )
             .onHover { hovering in
-                NSApp.activate()
-
                 if hovering {
+                    NSApp.activate()
                     focus = post.id
                 }
             }
