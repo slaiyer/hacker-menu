@@ -164,6 +164,11 @@ struct HackerMenu: App {
                                 .keyboardShortcut(.home, modifiers: [])
                                 .buttonStyle(.borderless)
                                 .controlSize(.small)
+
+                                Text("·")
+                                    .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
+                                    .shadow(color: .accent, radius: 1)
+                                    .blur(radius: 1)
                             }
                         } else {
                             ZStack {
@@ -175,7 +180,9 @@ struct HackerMenu: App {
                                         options: .repeat(.continuous),
                                         isActive: isFetching,
                                     )
-                                    .foregroundStyle(.tertiary)
+                                    .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
+                                    .shadow(color: .accent, radius: 1)
+                                    .blur(radius: 1)
                             }
                         }
                     }
