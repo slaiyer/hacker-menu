@@ -145,25 +145,26 @@ struct HackerMenu: App {
                             .padding(.trailing, 15)
 
                             ZStack {
-                                Button("􀅀") {
-                                    withAnimation {
-                                        proxy.scrollTo(bottomID)
+                                HStack {
+                                    Button("􀅀") {
+                                        withAnimation {
+                                            proxy.scrollTo(bottomID)
+                                        }
                                     }
-                                }
-                                .hidden()
-                                .keyboardShortcut(.end, modifiers: [])
-                                .buttonStyle(.borderless)
-                                .controlSize(.small)
+                                    .keyboardShortcut(.end, modifiers: [])
+                                    .buttonStyle(.borderless)
+                                    .controlSize(.small)
 
-                                Button("􀄿") {
-                                    withAnimation {
-                                        proxy.scrollTo(topID)
+                                    Button("􀄿") {
+                                        withAnimation {
+                                            proxy.scrollTo(topID)
+                                        }
                                     }
+                                    .keyboardShortcut(.home, modifiers: [])
+                                    .buttonStyle(.borderless)
+                                    .controlSize(.small)
                                 }
                                 .hidden()
-                                .keyboardShortcut(.home, modifiers: [])
-                                .buttonStyle(.borderless)
-                                .controlSize(.small)
 
                                 Text("·")
                                     .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
