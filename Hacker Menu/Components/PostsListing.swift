@@ -104,12 +104,10 @@ struct PostRow: View {
 
                         Text(hnURL.standardized.absoluteString)
                     }
-                    .foregroundStyle(.secondary)
 
                     Divider()
 
                     Text("\(postTime)")
-                        .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
