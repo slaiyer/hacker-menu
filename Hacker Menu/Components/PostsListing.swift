@@ -51,7 +51,7 @@ struct PostRow: View {
                 TwinLink(extURL: extURL, hnURL: hnURL, openConfig: openConfig)
                     .padding(.leading, 2)
                     .shadow(color: isHoverRow ? .accent.mix(with: .primary, by: 0.5) : .clear, radius: 2)
-                    .blur(radius: isHoverRow ? 0 : 1)
+                    .blur(radius: isHoverRow ? 0 : 0.5)
 
                 VStack(alignment: .leading) {
                     let title = post.title ?? "􀉣"
