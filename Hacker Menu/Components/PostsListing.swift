@@ -92,8 +92,6 @@ struct PostRow: View {
                         Spacer()
 
                         Text(extURL.standardized.absoluteString)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
                     }
 
                     Divider()
@@ -106,13 +104,11 @@ struct PostRow: View {
 
                         Text(hnURL.standardized.absoluteString)
                     }
-                    .font(.subheadline)
                     .foregroundStyle(.secondary)
 
                     Divider()
 
                     Text("\(postTime)")
-                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
@@ -162,7 +158,6 @@ struct TwinLink: View {
             NSWorkspace.shared.open(hnURL, configuration: openConfig)
         } label: {
             Text("􀉣")
-                .font(.subheadline)
                 .shadow(color: .accent, radius: 0)
                 .frame(maxHeight: .infinity)
         }
@@ -221,7 +216,6 @@ struct PostInfo: View {
             .focusable(false)
         }
         .padding(.leading)
-        .font(.subheadline)
         .foregroundStyle(isHoveringHnUrl ? .accent.mix(with: .primary, by: 0.5) : .secondary)
         .onHover { hovering in isHoveringHnUrl = hovering }
         .opacity(isHoveringHnUrl ? 1.0 : 0.5)
