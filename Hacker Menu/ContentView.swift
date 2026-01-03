@@ -29,8 +29,6 @@ struct HackerMenu: App {
         MenuBarExtra {
             ContentView()
                 .font(Font.custom("Lucida Grande Light", size: 12))
-                .fontWidth(.condensed)
-                .fontWeight(.light)
         } label: {
             Text(showHeadline ? truncatedTitle ?? "Reading HN…" : "ℏ")
                 .onAppear(perform: startApp)
