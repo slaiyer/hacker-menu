@@ -107,13 +107,13 @@ struct PostRow: View {
                         Text(hnURL.standardized.absoluteString)
                     }
                     .font(.subheadline)
-                    .fontWeight(.light)
+                    .fontWeight(.thin)
 
                     Divider()
 
                     Text("\(postTime)")
                         .font(.subheadline)
-                        .fontWeight(.light)
+                        .fontWeight(.ultraLight)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
@@ -162,6 +162,7 @@ struct TwinLink: View {
             NSWorkspace.shared.open(hnURL, configuration: openConfig)
         } label: {
             Text("􀉣")
+                .font(.subheadline)
                 .shadow(color: .accent, radius: 0)
                 .frame(maxHeight: .infinity)
         }

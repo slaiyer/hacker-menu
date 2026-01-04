@@ -11,6 +11,7 @@ struct Actions: View {
     var body: some View {
         ZStack {
             Toggle("ℏ", isOn: $showHeadline)
+                .fontWeight(.thin)
                 .keyboardShortcut("h", modifiers: [])
                 .help("􀂢 Headline")
                 .tint(.accent.mix(with: .primary, by: 0.5))
