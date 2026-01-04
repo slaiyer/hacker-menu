@@ -59,7 +59,7 @@ struct PostRow: View {
                     if let extURL {
                         ExternalLink(title: title, link: extURL, openConfig: openConfig)
                             .foregroundStyle(.primary)
-                            .shadow(color: .accent, radius: isHoverRow ? 0.75 : 0)
+                            .shadow(color: .accent, radius: isHoverRow ? 0.5 : 0)
                     } else {
                         Text(title)
                             .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
@@ -93,7 +93,7 @@ struct PostRow: View {
 
                         Text(extURL.standardized.absoluteString)
                             .font(.subheadline)
-                            .fontWeight(.light)
+                            .fontWeight(.thin)
                     }
 
                     Divider()
@@ -173,7 +173,7 @@ struct TwinLink: View {
         .contentShape(.circle)
         .clipShape(.circle)
         .clipped(antialiased: true)
-        .blur(radius: isHovering ? 0.0 : 0.5)
+        .blur(radius: isHovering ? 0 : 0.5)
         .animation(.default, value: isHovering)
     }
 }
@@ -226,7 +226,7 @@ struct PostInfo: View {
         .foregroundStyle(isHoveringHnUrl ? .accent.mix(with: .primary, by: 0.5) : .secondary)
         .onHover { hovering in isHoveringHnUrl = hovering }
         .opacity(isHoveringHnUrl ? 1.0 : 0.5)
-        .shadow(color: .accent, radius: isHoveringHnUrl ? 0.5 : 1)
+        .shadow(color: .accent, radius: isHoveringHnUrl ? 0 : 0.5)
         .animation(.default, value: isHoveringHnUrl)
     }
 
