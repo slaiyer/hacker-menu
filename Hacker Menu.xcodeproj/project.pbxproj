@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1F3DCA462F041014000EA117 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3DCA452F041014000EA117 /* KeyboardShortcuts */; };
 		1F3DCA492F04113B000EA117 /* MenuBarExtraAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 1F3DCA482F04113B000EA117 /* MenuBarExtraAccess */; };
-		1F7F93312F0547FD003E14BF /* lucida-grande-light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F7F93302F0547FD003E14BF /* lucida-grande-light.otf */; };
 		1FB71E192EEAC6EE0006886C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FB71E142EEAC6EE0006886C /* Assets.xcassets */; };
 		1FB71E1A2EEAC6EE0006886C /* PostsListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E102EEAC6EE0006886C /* PostsListing.swift */; };
 		1FB71E1B2EEAC6EE0006886C /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB71E172EEAC6EE0006886C /* LocalDataSource.swift */; };
@@ -20,7 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F7F93302F0547FD003E14BF /* lucida-grande-light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lucida-grande-light.otf"; sourceTree = "<group>"; };
 		1FB71E0D2EEAC6EE0006886C /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		1FB71E0F2EEAC6EE0006886C /* ExternalLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalLink.swift; sourceTree = "<group>"; };
 		1FB71E102EEAC6EE0006886C /* PostsListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsListing.swift; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 			isa = PBXGroup;
 			children = (
 				1FB71E152EEAC6EE0006886C /* ContentView.swift */,
-				1F7F93302F0547FD003E14BF /* lucida-grande-light.otf */,
 				1FB71E112EEAC6EE0006886C /* Components */,
 				1FB71E132EEAC6EE0006886C /* DTO */,
 				1FB71E172EEAC6EE0006886C /* LocalDataSource.swift */,
@@ -155,7 +152,6 @@
 		F8A83F2A287F82F1000FD249 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				1F7F93312F0547FD003E14BF /* lucida-grande-light.otf in Resources */,
 				1FB71E192EEAC6EE0006886C /* Assets.xcassets in Resources */,
 			);
 		};

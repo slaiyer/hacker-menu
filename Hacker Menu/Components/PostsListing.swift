@@ -92,6 +92,7 @@ struct PostRow: View {
                         Spacer()
 
                         Text(extURL.standardized.absoluteString)
+                            .font(.subheadline)
                     }
 
                     Divider()
@@ -104,10 +105,12 @@ struct PostRow: View {
 
                         Text(hnURL.standardized.absoluteString)
                     }
+                    .font(.subheadline)
 
                     Divider()
 
                     Text("\(postTime)")
+                        .font(.subheadline)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
@@ -213,6 +216,7 @@ struct PostInfo: View {
             .buttonStyle(.borderless)
             .focusable(false)
         }
+        .font(.subheadline)
         .padding(.leading)
         .foregroundStyle(isHoveringHnUrl ? .accent.mix(with: .primary, by: 0.5) : .secondary)
         .onHover { hovering in isHoveringHnUrl = hovering }
