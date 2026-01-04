@@ -114,7 +114,7 @@ struct PostRow: View {
 
                     Text("\(postTime)")
                         .font(.subheadline)
-                        .fontWeight(.ultraLight)
+                        .fontWeight(.thin)
                 }
                 .frame(maxWidth: 250, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)

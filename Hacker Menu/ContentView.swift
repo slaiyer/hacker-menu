@@ -168,9 +168,10 @@ struct HackerMenu: App {
                                 .hidden()
 
                                 Text("·")
-                                    .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
+                                    .font(.headline)
+                                    .foregroundStyle(.accent)
                                     .shadow(color: .accent, radius: 1)
-                                    .blur(radius: 1)
+                                    .blur(radius: 0.5)
                             }
                         } else {
                             ZStack {
@@ -182,9 +183,9 @@ struct HackerMenu: App {
                                         options: .repeat(.continuous),
                                         isActive: isFetching,
                                     )
-                                    .foregroundStyle(.accent.mix(with: .primary, by: 0.5))
+                                    .foregroundStyle(.accent)
                                     .shadow(color: .accent, radius: 1)
-                                    .blur(radius: 1)
+                                    .blur(radius: 0.5)
                             }
                         }
                     }
