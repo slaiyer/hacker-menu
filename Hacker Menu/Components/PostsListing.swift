@@ -86,6 +86,7 @@ struct PostRow: View {
                 VStack(alignment: .leading) {
                     if let title = post.title {
                         Text(title)
+                            .font(.callout)
                     }
 
                     if let extURL {
@@ -162,7 +163,7 @@ struct TwinLink: View {
             NSWorkspace.shared.open(hnURL, configuration: openConfig)
         } label: {
             Text("􀉣")
-                .font(.subheadline)
+                .font(.footnote)
                 .shadow(color: .accent, radius: 0)
                 .frame(maxHeight: .infinity)
         }
@@ -173,7 +174,6 @@ struct TwinLink: View {
         .contentShape(.circle)
         .clipShape(.circle)
         .clipped(antialiased: true)
-        .blur(radius: isHovering ? 0 : 0.5)
         .animation(.default, value: isHovering)
     }
 }
