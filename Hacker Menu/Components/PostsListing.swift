@@ -116,7 +116,7 @@ struct PostRow: View {
                         .font(.subheadline)
                         .fontWeight(.ultraLight)
                 }
-                .frame(maxWidth: 350, alignment: .leading)
+                .frame(maxWidth: 250, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .shadow(color: .accent, radius: 0)
                 .padding()
