@@ -13,6 +13,7 @@ struct HackerMenu: App {
     private let viewModel = FeedViewModel()
 
     @StateObject private var manager = MenuBarManager()
+    @State private var requestPermissionOpenLogin = false
     @State private var isFetching = false
     @State private var posts: [StoryFetchResponse] = LocalDataSource.getPosts()
     @State private var showHeadline = LocalDataSource.getShowHeadline()
@@ -200,9 +201,22 @@ struct HackerMenu: App {
         .allowsWindowActivationEvents()
         .allowsTightening(true)
         .focusEffectDisabled()
+        .alert(
+            "Permission required",
+            isPresented: $requestPermissionOpenLogin,
+        ) {
+            Button("Allow") { try? SMAppService.mainApp.register() }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Start Hacker Menu automatically at login?")
+        }
     }
 
     private func startApp() {
+        if SMAppService.mainApp.status != .enabled {
+            requestPermissionOpenLogin = true
+        }
+
         runFilter(textObserver.searchText)
         reload()
 
@@ -215,10 +229,6 @@ struct HackerMenu: App {
                 }
             }
         )
-
-        if SMAppService.mainApp.status != .enabled {
-            try? SMAppService.mainApp.register()
-        }
     }
 
     private func adjustTitleForMenuBar() {
