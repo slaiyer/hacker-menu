@@ -17,6 +17,18 @@ run: build
     open 'build/Build/Products/Release/{{app}}.app'
     echo ' done.'
 
+@trace: sign
+  xcrun xctrace record \
+    --template 'Leaks' \
+    --launch \
+    -- \
+    'build/Build/Products/Release/{{app}}.app'
+
+@sign: build
+  codesign -s - -f \
+    --entitlements get-task-allow.plist \
+    'build/Build/Products/Release/{{app}}.app'
+
 @build:
     xcrun xcodebuild build analyze \
         -project '{{app}}.xcodeproj' \
