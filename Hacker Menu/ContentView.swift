@@ -205,8 +205,8 @@ struct HackerMenu: App {
             "Permission required",
             isPresented: $requestPermissionOpenLogin,
         ) {
-            Button("Allow") { try? SMAppService.mainApp.register() }
-            Button("Cancel", role: .cancel) {}
+            Button("Allow", role: .confirm) { try? SMAppService.mainApp.register() }
+            Button("Deny", role: .cancel) {}
         } message: {
             Text("Start Hacker Menu automatically at login?")
         }
