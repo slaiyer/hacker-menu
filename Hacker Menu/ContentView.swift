@@ -107,7 +107,10 @@ struct HackerMenu: App {
                     TextField("􀜓 Filter", text: $textObserver.searchText)
                         .focused($focus, equals: -1)
                         .onHover { hovering in if hovering { focus = -1 } }
-                        .onSubmit { focus = nil }
+                        .onSubmit {
+                            runFilter(textObserver.searchText)
+                            focus = nil
+                        }
                         .autocorrectionDisabled()
                         .padding(.horizontal, 45)
                 } else {
@@ -205,10 +208,10 @@ struct HackerMenu: App {
             "Permission required",
             isPresented: $requestPermissionOpenLogin,
         ) {
-            Button("Allow", role: .confirm) { try? SMAppService.mainApp.register() }
-            Button("Deny", role: .cancel) {}
+            Button("Yes", role: .confirm) { try? SMAppService.mainApp.register() }
+            Button("No", role: .cancel) {}
         } message: {
-            Text("Start Hacker Menu automatically at login?")
+            Text("Start at login?")
         }
     }
 
@@ -217,8 +220,11 @@ struct HackerMenu: App {
             requestPermissionOpenLogin = true
         }
 
-        runFilter(textObserver.searchText)
-        reload()
+        runFilter()
+
+        Task.immediateDetached {
+            reload()
+        }
 
         Timer.scheduledTimer(
             withTimeInterval: reloadRate,
@@ -375,23 +381,20 @@ struct HackerMenu: App {
     }
 
     private func startFilterMode() {
-        isFilterMode = true
         NSApp.activate()
-
-        DispatchQueue.main.async {
-            focus = -1
-        }
+        isFilterMode = true
+        focus = -1
     }
 
     private func endFilterMode() {
+        runFilter()
         textObserver.searchText.removeAll(keepingCapacity: true)
         textObserver.debouncedText.removeAll(keepingCapacity: true)
-        filterTask?.cancel()
         focus = nil
         isFilterMode = false
     }
 
-    private func runFilter(_ filterText: String) {
+    private func runFilter(_ filterText: String = "") {
         filterTask?.cancel()
 
         filterTask = Task.immediateDetached(priority: .background) { [posts, filterText] in
@@ -510,7 +513,7 @@ class TextFieldObserver : ObservableObject {
 
     init() {
         $searchText
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
+            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink(receiveValue: { [weak self] t in
                 self?.debouncedText = t
             })
