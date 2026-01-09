@@ -7,10 +7,10 @@ import SwiftUI
 @main
 struct HackerMenu: App {
     private static let numPosts = 500
-    private let maxMenuBarWidth: CGFloat = 250
-    private let reloadRate = 3600.0
+    private static let maxMenuBarWidth: CGFloat = 250
+    private static let reloadRate = 3600.0
     private static let timer = Timer()
-    private let viewModel = FeedViewModel()
+    private static let viewModel = FeedViewModel()
 
     @StateObject private var manager = MenuBarManager()
     @State private var requestPermissionOpenLogin = false
@@ -49,7 +49,7 @@ struct HackerMenu: App {
             runFilter(textObserver.debouncedText)
         }
         .onChange(of: filteredPosts) {
-            viewModel.requestScrollToTop()
+            HackerMenu.viewModel.requestScrollToTop()
         }
         .onChange(of: showHeadline) {
             adjustTitleForMenuBar()
@@ -144,7 +144,7 @@ struct HackerMenu: App {
                                 EmptyView()
                                     .id(bottomID)
                             }
-                            .onReceive(viewModel.scrollRequest) { _ in
+                            .onReceive(HackerMenu.viewModel.scrollRequest) { _ in
                                 withAnimation {
                                     proxy.scrollTo(topID)
                                 }
@@ -229,7 +229,7 @@ struct HackerMenu: App {
         }
 
         Timer.scheduledTimer(
-            withTimeInterval: reloadRate,
+            withTimeInterval: HackerMenu.reloadRate,
             repeats: true,
             block: { _ in
                 Task { @MainActor in
@@ -255,12 +255,12 @@ struct HackerMenu: App {
         let tempLabel = NSTextField(labelWithString: string)
         tempLabel.sizeToFit()
 
-        if tempLabel.frame.width <= maxMenuBarWidth {
+        if tempLabel.frame.width <= HackerMenu.maxMenuBarWidth {
             return string
         }
 
         var truncatedString = string
-        while tempLabel.frame.width > maxMenuBarWidth && truncatedString.count > 0 {
+        while tempLabel.frame.width > HackerMenu.maxMenuBarWidth && truncatedString.count > 0 {
             truncatedString.removeLast()
             tempLabel.stringValue = truncatedString + "…"
             tempLabel.sizeToFit()
@@ -354,7 +354,7 @@ struct HackerMenu: App {
         Task {
             if reverse {
                 if sortKey == .original {
-                    viewModel.requestScrollToTop()
+                    HackerMenu.viewModel.requestScrollToTop()
                     return
                 }
 

@@ -4,13 +4,13 @@ struct PostsListing: View {
     let posts: [StoryFetchResponse]
     @FocusState.Binding var focus: Int?
 
-    let openConfig = {
+    static let openConfig = {
         let conf = NSWorkspace.OpenConfiguration()
         conf.activates = false
         return conf
     }()
 
-    private let dateTimeFormatter = RelativeDateTimeFormatter()
+    private static let dateTimeFormatter = RelativeDateTimeFormatter()
 
     var body: some View {
         ForEach(posts) { post in
@@ -19,8 +19,8 @@ struct PostsListing: View {
             PostRow(
                 post: post,
                 postTime: postTime,
-                timestamp: dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
-                openConfig: openConfig,
+                timestamp: PostsListing.dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
+                openConfig: PostsListing.openConfig,
             )
             .onHover { hovering in
                 if hovering {
