@@ -81,7 +81,6 @@ struct PostRow: View {
                     }
                 }
             }
-            .animation(.easeIn, value: isHoverRow)
             .popover(isPresented: $showTipRow, arrowEdge: .leading) {
                 VStack(alignment: .leading) {
                     if let title = post.title {
@@ -126,6 +125,7 @@ struct PostRow: View {
             Spacer()
         }
         .contentShape(.rect)
+        .animation(.easeIn, value: isHoverRow)
         .onHover { hovering in
             isHoverRow = hovering
 

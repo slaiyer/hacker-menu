@@ -105,6 +105,8 @@ struct HackerMenu: App {
 
                 if isFilterMode {
                     TextField("􀜓 Filter", text: $textObserver.searchText)
+                        .fontWidth(.standard)
+                        .fontWeight(.regular)
                         .focused($focus, equals: -1)
                         .onHover { hovering in if hovering { focus = -1 } }
                         .onSubmit {
