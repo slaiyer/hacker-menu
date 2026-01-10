@@ -139,8 +139,27 @@ struct PostRow: View {
         )
         .focusable()
         .onKeyPress(.space, phases: .all) { keyPress in
+            if !isHoverRow {
+                return .handled
+            }
+
             if keyPress.phase == .up {
                 showTipRow.toggle()
+            }
+
+            return .handled
+        }
+        .onKeyPress(.return, phases: .all) { keyPress in
+            if !isHoverRow {
+                return .handled
+            }
+
+            if keyPress.phase == .up {
+                if let extURL {
+                    NSWorkspace.shared.open(extURL, configuration: openConfig)
+                }
+
+                NSWorkspace.shared.open(hnURL, configuration: openConfig)
             }
 
             return .handled
