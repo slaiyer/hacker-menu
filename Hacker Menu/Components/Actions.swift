@@ -14,7 +14,7 @@ struct Actions: View {
                 .fontWeight(.thin)
                 .keyboardShortcut("h", modifiers: [])
                 .help("􀂢 Headline")
-                .tint(.accent)
+                .tint(.accent.mix(with: .primary, by: 0.5))
                 .toggleStyle(.button)
                 .buttonStyle(.borderless)
                 .contentShape(.capsule)
