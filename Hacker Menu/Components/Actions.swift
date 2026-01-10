@@ -49,6 +49,7 @@ struct Actions: View {
                         } label: {
                             Label(key.label, systemImage: sortKey == key ? "checkmark" : "")
                         }
+                        .tint(.accent.mix(with: .primary, by: 0.5))
                         // TODO: maintain sync with ContentView commands; this is here only for the Menu symbols in the UI
                         .keyboardShortcut(KeyEquivalent(key.cut), modifiers: [])
                     }
