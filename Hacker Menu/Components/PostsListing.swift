@@ -96,7 +96,8 @@ struct PostRow: View {
 
                         Text(extURL.standardized.absoluteString)
                             .font(.subheadline)
-                            .fontWeight(.thin)
+                            .fontWeight(.ultraLight)
+                            .fontWidth(.condensed)
                     }
 
                     Divider()
@@ -104,13 +105,15 @@ struct PostRow: View {
                     HStack {
                         Text(post.type)
                             .textCase(.uppercase)
+                            .fontWeight(.thin)
 
                         Divider()
 
                         Text(hnURL.standardized.absoluteString)
+                            .fontWeight(.ultraLight)
+                            .fontWidth(.condensed)
                     }
                     .font(.subheadline)
-                    .fontWeight(.thin)
 
                     Divider()
 
@@ -118,9 +121,9 @@ struct PostRow: View {
                         .font(.subheadline)
                         .fontWeight(.thin)
                 }
-                .fontWidth(.standard)
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
+                .fontWidth(.standard)
                 .shadow(color: .accent, radius: 0)
                 .padding()
             }
@@ -245,11 +248,10 @@ struct PostInfo: View {
             .focusable(false)
             .onHover { hovering in isHover = hovering}
         }
-        .font(.subheadline)
-        .fontWeight(.thin)
+        .fontWeight(.ultraLight)
         .padding(.leading)
         .underline(isHover)
-        .shadow(color: isHover ? .primary : .accent, radius: isHover ? 5 : 0)
+        .shadow(color: .accent, radius: isHover ? 5 : 0)
         .animation(.default, value: isHover)
     }
 
