@@ -248,6 +248,7 @@ struct PostInfo: View {
         .font(.subheadline)
         .fontWeight(.thin)
         .padding(.leading)
+        .underline(isHover)
         .shadow(color: isHover ? .primary : .accent, radius: isHover ? 5 : 0)
         .animation(.default, value: isHover)
     }
