@@ -248,7 +248,7 @@ struct PostInfo: View {
             .focusable(false)
             .onHover { hovering in isHover = hovering}
         }
-        .fontWeight(.ultraLight)
+        .fontWeight(.thin)
         .padding(.leading)
         .underline(isHover)
         .shadow(color: .accent, radius: isHover ? 5 : 0)

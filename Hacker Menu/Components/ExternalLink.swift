@@ -20,7 +20,7 @@ struct ExternalLink: View {
             .buttonStyle(.borderless)
             .focusable(false)
             .onHover { hovering in isHover = hovering}
-            .fontWeight(.ultraLight)
+            .fontWeight(.light)
             .underline(isHover)
             .shadow(color: .accent, radius: isHover ? 5 : 0)
             .animation(.default, value: isHover)
