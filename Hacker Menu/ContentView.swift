@@ -29,6 +29,9 @@ struct HackerMenu: App {
     var body: some Scene {
         MenuBarExtra {
             ContentView()
+                .background {
+                    Color(nsColor: .windowBackgroundColor)
+                }
                 .fontWidth(.condensed)
                 .fontWeight(.light)
         } label: {
