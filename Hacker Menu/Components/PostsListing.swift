@@ -89,6 +89,7 @@ struct PostRow: View {
                     if let title = post.title {
                         Text(title)
                             .font(.callout)
+                            .fontWeight(.regular)
                     }
 
                     if let extURL {
@@ -96,7 +97,7 @@ struct PostRow: View {
 
                         Text(extURL.standardized.absoluteString)
                             .font(.subheadline)
-                            .fontWeight(.ultraLight)
+                            .fontWeight(.light)
                             .fontWidth(.condensed)
                     }
 
@@ -105,12 +106,12 @@ struct PostRow: View {
                     HStack {
                         Text(post.type)
                             .textCase(.uppercase)
-                            .fontWeight(.thin)
+                            .fontWeight(.light)
 
                         Divider()
 
                         Text(hnURL.standardized.absoluteString)
-                            .fontWeight(.ultraLight)
+                            .fontWeight(.light)
                             .fontWidth(.condensed)
                     }
                     .font(.subheadline)
@@ -119,7 +120,7 @@ struct PostRow: View {
 
                     Text("\(postTime)")
                         .font(.subheadline)
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
