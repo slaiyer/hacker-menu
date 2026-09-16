@@ -102,7 +102,7 @@ struct HackerMenu: App {
                     Button(action: endFilterMode) {
                         Text("􀆙")
                     }
-                    .keyboardShortcut(.cancelAction)
+                    .keyboardShortcut(.escape, modifiers: [.command])  // document what actually works with macos 27
                 }
                 .hidden()
 
