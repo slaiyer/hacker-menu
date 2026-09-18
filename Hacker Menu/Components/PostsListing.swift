@@ -10,7 +10,7 @@ struct PostsListing: View {
         return conf
     }()
 
-    private static let protocolRegex = /.*:\/\//
+    private static let protocolRegex = /.*:\/\/(?:www\.)?/
     private static let slash = CharacterSet(charactersIn: "/")
 
     private static let dateTimeFormatter = RelativeDateTimeFormatter()
