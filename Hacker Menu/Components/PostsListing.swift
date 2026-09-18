@@ -4,11 +4,14 @@ struct PostsListing: View {
     let posts: [StoryFetchResponse]
     @FocusState.Binding var focus: Int?
 
-    static let openConfig = {
+    private static let openConfig = {
         let conf = NSWorkspace.OpenConfiguration()
         conf.activates = false
         return conf
     }()
+
+    private static let protocolRegex = /.*:\/\//
+    private static let slash = CharacterSet(charactersIn: "/")
 
     private static let dateTimeFormatter = RelativeDateTimeFormatter()
 
@@ -21,6 +24,8 @@ struct PostsListing: View {
                 postTime: postTime,
                 timestamp: PostsListing.dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
                 openConfig: PostsListing.openConfig,
+                protocolRegex: PostsListing.protocolRegex,
+                slash: PostsListing.slash,
             )
             .onHover { hovering in
                 if hovering {
@@ -38,6 +43,8 @@ struct PostRow: View {
     let postTime: Date
     let timestamp: String
     let openConfig: NSWorkspace.OpenConfiguration
+    let protocolRegex: Regex<Substring>
+    let slash: CharacterSet
 
     @State private var isHoverRow: Bool = false
     @State private var showTipRow: Bool = false
@@ -95,7 +102,11 @@ struct PostRow: View {
                     if let extURL {
                         Spacer()
 
-                        Text(extURL.standardized.absoluteString)
+                        Text(
+                            extURL.standardized.absoluteString
+                                .trimmingPrefix(protocolRegex)
+                                .trimmingCharacters(in: slash)
+                        )
                             .font(.subheadline)
                             .fontWeight(.light)
                             .fontWidth(.condensed)
@@ -110,7 +121,11 @@ struct PostRow: View {
 
                         Divider()
 
-                        Text(hnURL.standardized.absoluteString)
+                        Text(
+                            hnURL.standardized.absoluteString
+                                .trimmingPrefix(protocolRegex)
+                                .trimmingCharacters(in: slash)
+                        )
                             .fontWeight(.light)
                             .fontWidth(.condensed)
                     }
