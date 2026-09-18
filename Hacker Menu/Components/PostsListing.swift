@@ -10,7 +10,7 @@ struct PostsListing: View {
         return conf
     }()
 
-    private static let protocolRegex = /(?:.*?:\/\/)?(?:www\.)?/
+    private static let urlPrefixRegex = /(?:.*?:\/\/)?(?:www\.)?/
     private static let slash = CharacterSet(charactersIn: "/")
 
     private static let dateTimeFormatter = RelativeDateTimeFormatter()
@@ -24,7 +24,7 @@ struct PostsListing: View {
                 postTime: postTime,
                 timestamp: PostsListing.dateTimeFormatter.localizedString(for: postTime, relativeTo: .now),
                 openConfig: PostsListing.openConfig,
-                protocolRegex: PostsListing.protocolRegex,
+                urlPrefixRegex: PostsListing.urlPrefixRegex,
                 slash: PostsListing.slash,
             )
             .onHover { hovering in
@@ -43,7 +43,7 @@ struct PostRow: View {
     let postTime: Date
     let timestamp: String
     let openConfig: NSWorkspace.OpenConfiguration
-    let protocolRegex: Regex<Substring>
+    let urlPrefixRegex: Regex<Substring>
     let slash: CharacterSet
 
     @State private var isHoverRow: Bool = false
@@ -104,7 +104,7 @@ struct PostRow: View {
 
                         Text(
                             extURL.standardized.absoluteString
-                                .trimmingPrefix(protocolRegex)
+                                .trimmingPrefix(urlPrefixRegex)
                                 .trimmingCharacters(in: slash)
                         )
                             .font(.subheadline)
@@ -123,7 +123,7 @@ struct PostRow: View {
 
                         Text(
                             hnURL.standardized.absoluteString
-                                .trimmingPrefix(protocolRegex)
+                                .trimmingPrefix(urlPrefixRegex)
                                 .trimmingCharacters(in: slash)
                         )
                             .fontWeight(.light)
