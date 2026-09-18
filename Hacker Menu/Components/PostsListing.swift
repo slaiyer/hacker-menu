@@ -121,13 +121,9 @@ struct PostRow: View {
 
                         Divider()
 
-                        Text(
-                            hnURL.standardized.absoluteString
-                                .trimmingPrefix(urlPrefixRegex)
-                                .trimmingCharacters(in: slash)
-                        )
+                        Text(verbatim: String(post.id))
+                            .fontDesign(.monospaced)
                             .fontWeight(.light)
-                            .fontWidth(.condensed)
                     }
                     .font(.subheadline)
 
