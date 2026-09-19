@@ -95,8 +95,8 @@ struct PostRow: View {
                 VStack(alignment: .leading) {
                     if let title = post.title {
                         Text(title)
-                            .font(.callout)
-                            .fontWeight(.regular)
+                            .font(.headline)
+                            .fontDesign(.serif)
                     }
 
                     if let extURL {
@@ -108,8 +108,6 @@ struct PostRow: View {
                                 .trimmingCharacters(in: slash)
                         )
                             .font(.subheadline)
-                            .fontWeight(.light)
-                            .fontWidth(.condensed)
                     }
 
                     Divider()
@@ -117,21 +115,20 @@ struct PostRow: View {
                     HStack {
                         Text(post.type)
                             .textCase(.uppercase)
-                            .fontWeight(.light)
 
                         Divider()
 
                         Text(verbatim: String(post.id))
                             .fontDesign(.monospaced)
-                            .fontWeight(.light)
                     }
-                    .font(.subheadline)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
 
                     Divider()
 
                     Text("\(postTime)")
-                        .font(.subheadline)
-                        .fontWeight(.light)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
