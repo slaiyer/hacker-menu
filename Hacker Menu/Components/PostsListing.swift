@@ -10,7 +10,7 @@ struct PostsListing: View {
         return conf
     }()
 
-    private static let urlPrefixRegex = /(?:.*?:\/\/)?(?:www\.)?/
+    private static let urlPrefixRegex = /(?:https?:\/\/)?(?:www\.)?/
     private static let slash = CharacterSet(charactersIn: "/")
 
     private static let dateTimeFormatter = RelativeDateTimeFormatter()
