@@ -95,7 +95,7 @@ struct PostRow: View {
                 VStack(alignment: .leading) {
                     if let title = post.title {
                         Text(title)
-                            .font(.headline)
+                            .font(.headline.lowercaseSmallCaps())
                             .fontDesign(.serif)
                     }
 
@@ -114,20 +114,19 @@ struct PostRow: View {
 
                     HStack {
                         Text(post.type)
-                            .textCase(.uppercase)
 
                         Divider()
 
                         Text(verbatim: String(post.id))
                             .fontDesign(.monospaced)
                     }
-                    .font(.footnote)
+                    .font(.footnote.smallCaps())
                     .foregroundStyle(.secondary)
 
                     Divider()
 
                     Text("\(postTime)")
-                        .font(.footnote)
+                        .font(.footnote.smallCaps())
                         .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: 350, alignment: .leading)
@@ -250,6 +249,7 @@ struct PostInfo: View {
                 action: { NSWorkspace.shared.open(hnURL, configuration: openConfig) },
                 label: {
                     Text(timestamp)
+                        .font(.default.smallCaps())
                         .frame(alignment: .trailing)
                 }
             )
