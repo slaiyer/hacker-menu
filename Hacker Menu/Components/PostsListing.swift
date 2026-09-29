@@ -95,7 +95,6 @@ struct PostRow: View {
                 VStack(alignment: .leading) {
                     if let title = post.title {
                         Text(title)
-                            .font(.headline.lowercaseSmallCaps())
                             .fontDesign(.serif)
                     }
 
